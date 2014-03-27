@@ -3,17 +3,18 @@ package com.enlightendev.spring.core.service;
 import com.enlightendev.spring.core.domain.Company;
 import java.util.List;
 
-/**
- * Created by Juan on 3/21/14.
- */
 public interface CompanyService {
 
-    public List<Company> query(String companyName);
+    public Company create(Company company);
 
-    public Company findByID(int id);
+    public Company update(Company company);
 
-    public void removeByID(int id);
+    public Company query(String companyName);
 
-    public List<Company> getAll();
+    public Company findById(Long id);
+
+    public void delete(Long id);
+
+    public List<Company> findAll();
 
 }

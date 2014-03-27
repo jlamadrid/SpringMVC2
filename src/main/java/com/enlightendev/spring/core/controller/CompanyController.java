@@ -20,29 +20,40 @@ public class CompanyController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model){
-        model.addAttribute("companies", companyService.getAll());
+        model.addAttribute("companies", companyService.findAll());
         return "company/list";
     }
 
     @RequestMapping(value = "/byName/{name}", method = RequestMethod.GET)
     public String findByName(@PathVariable String name, Model model){
 
-        List<Company> result = companyService.query(name);
-        model.addAttribute("company", result.get(0));
+        Company result = companyService.query(name);
+        model.addAttribute("company", result);
         return "company/company";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String findByID(@PathVariable int id, Model model){
+    public String findByID(@PathVariable Long id, Model model){
 
-        Company result = companyService.findByID(id);
+        Company result = companyService.findById(id);
         model.addAttribute("company", result);
         return "company/company";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String delete(@PathVariable int id, Model model){
-        companyService.removeByID(id);
+    public String delete(@PathVariable Long id, Model model){
+        companyService.delete(id);
+        return "redirect:/companies/list";
+    }
+
+    @RequestMapping(value = "/init")
+    public String init(){
+
+        companyService.create(new Company("Company 1", "CO1"));
+        companyService.create(new Company("Company 2", "CO2"));
+        companyService.create(new Company("Company 3", "CO3"));
+        companyService.create(new Company("Company 4", "CO4"));
+
         return "redirect:/companies/list";
     }
 }

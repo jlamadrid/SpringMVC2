@@ -17,11 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Juan on 3/26/14.
- */
 @Configuration
-@EnableJpaRepositories(basePackages = "com.enlightendev.core.dao")
+@EnableJpaRepositories(basePackages = "com.enlightendev.spring.core.dao")
 @EnableTransactionManagement
 public class DataConfig {
 
@@ -31,9 +28,15 @@ public class DataConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
+        /**
+         * We use a new Spring 3.1 feature that allows us to completely abstain from creating a persistence.xml file to
+         * declare the entity classes. Instead, we use Spring’s classpath scanning feature through the packagesToScan
+         * property of the LocalContainerEntityManagerFactoryBean. This will trigger Spring to scan for classes
+         * annotated with @Entity and @MappedSuperclass and automatically add those to the JPA PersistenceUnit.
+         */
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource());
-        emf.setPackagesToScan("com.enlightendev.core.domain");
+        emf.setPackagesToScan("com.enlightendev.spring.core.domain");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);

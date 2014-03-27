@@ -1,61 +1,63 @@
 package com.enlightendev.spring.core.service;
 
+import com.enlightendev.spring.core.dao.CompanyRepository;
 import com.enlightendev.spring.core.domain.Company;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Juan on 3/21/14.
- */
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private List<Company> companies;
+    @Autowired
+    private CompanyRepository companyRepository;
 
-    public CompanyServiceImpl(){
-
-        companies = new ArrayList<Company>();
-        companies.add(new Company("Company 1",1));
-        companies.add(new Company("Company 2",2));
-
-    }
+    public CompanyServiceImpl(){}
 
 
     @Override
-    public List<Company> query(String companyName) {
-        List<Company> result = new ArrayList<Company>();
-        for (Company company: companies ){
-            if(company.getName().equals(companyName)){
-                result.add(company);
-            }
-        }
-
-        return result;
+    @Transactional
+    public Company create(Company company) {
+        return companyRepository.save(company);
     }
 
     @Override
-    public Company findByID(int id) {
-        for (Company company: companies ){
-            if(company.getId() == id){
-                return company;
-            }
-        }
-        return new Company("No company found",0);
+    public Company update(Company company) {
+        Company updatedCompany = companyRepository.findOne(company.getId());
+
+        updatedCompany.setName(company.getName());
+        updatedCompany.setTicker(company.getTicker());
+
+        return updatedCompany;
     }
 
     @Override
-    public void removeByID(int id) {
-        for (Company company: companies ){
-            if(company.getId() == id){
-                companies.remove(company);
-            }
-        }
+    public Company query(String companyName) {
+
+        Company company = companyRepository.findByName(companyName);
+        return company;
     }
 
     @Override
-    public List<Company> getAll() {
-        return companies;
+    public Company findById(Long id) {
+
+        Company company = companyRepository.findOne(id);
+        return company;
+    }
+
+    @Override
+    public void delete(Long id) {
+        companyRepository.delete(id);
+    }
+
+    @Override
+    public List<Company> findAll() {
+
+        List<Company> list = Lists.newArrayList(companyRepository.findAll());
+        return list;
     }
 }
