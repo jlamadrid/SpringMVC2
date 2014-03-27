@@ -1,7 +1,6 @@
 package com.enlightendev.spring.core.service;
 
 import com.enlightendev.spring.core.domain.Company;
-
 import java.util.List;
 
 /**
@@ -12,5 +11,9 @@ public interface CompanyService {
     public List<Company> query(String companyName);
 
     public Company findByID(int id);
+
+    public void removeByID(int id);
+
+    public List<Company> getAll();
 
 }

@@ -18,6 +18,12 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model){
+        model.addAttribute("companies", companyService.getAll());
+        return "company/list";
+    }
+
     @RequestMapping(value = "/byName/{name}", method = RequestMethod.GET)
     public String findByName(@PathVariable String name, Model model){
 
@@ -32,5 +38,11 @@ public class CompanyController {
         Company result = companyService.findByID(id);
         model.addAttribute("company", result);
         return "company/company";
+    }
+
+    @RequestMapping(value = "/delete/{id}")
+    public String delete(@PathVariable int id, Model model){
+        companyService.removeByID(id);
+        return "redirect:/companies/list";
     }
 }

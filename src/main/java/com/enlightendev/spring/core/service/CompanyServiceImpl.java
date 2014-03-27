@@ -44,4 +44,18 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return new Company("No company found",0);
     }
+
+    @Override
+    public void removeByID(int id) {
+        for (Company company: companies ){
+            if(company.getId() == id){
+                companies.remove(company);
+            }
+        }
+    }
+
+    @Override
+    public List<Company> getAll() {
+        return companies;
+    }
 }
