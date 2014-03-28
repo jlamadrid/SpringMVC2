@@ -50,6 +50,12 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <repository>
+            <id>glassfish-repository</id>
+            <url>http://download.java.net/maven/glassfish</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -187,14 +193,6 @@
             <version>5.0.1.Final</version>
         </dependency>
 
-        <!-- Servlet -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -282,6 +280,27 @@
             <artifactId>spring-test</artifactId>
             <version>${org.springframework.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--
+        Needed to add this dependency to avoid this error:
+        java.lang.ClassFormatError: Absent Code attribute in method that is not native or abstract in class file javax/servlet/SessionTrackingMode
+        -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.servlet</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Servlet
+        Needed to move servlet to last for JUnit tests to work.
+        -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
