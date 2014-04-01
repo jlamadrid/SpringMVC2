@@ -12,5 +12,7 @@
 </head>
 <body>
 ${company.name}
+${company.ticker}
+${company.exchange}
 </body>
 </html>

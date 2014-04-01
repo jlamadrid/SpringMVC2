@@ -46,13 +46,29 @@ public class CompanyController {
         return "redirect:/companies/list";
     }
 
+    @RequestMapping(value = "/byExchange/{exchange}", method = RequestMethod.GET)
+    public String findByExchange(@PathVariable String exchange, Model model){
+
+        List<Company> result = companyService.findByExchange(exchange);
+        model.addAttribute("companies", result);
+        return "company/list";
+    }
+
+    @RequestMapping(value = "/allNYSE", method = RequestMethod.GET)
+    public String findByExchange(Model model){
+
+        List<Company> result = companyService.allNYSE();
+        model.addAttribute("companies", result);
+        return "company/list";
+    }
+
     @RequestMapping(value = "/init")
     public String init(){
 
-        companyService.create(new Company("Company 1", "CO1"));
-        companyService.create(new Company("Company 2", "CO2"));
-        companyService.create(new Company("Company 3", "CO3"));
-        companyService.create(new Company("Company 4", "CO4"));
+        companyService.create(new Company("Company 1", "CO1", "Nasdaq"));
+        companyService.create(new Company("Company 2", "CO2", "Nasdaq"));
+        companyService.create(new Company("Company 3", "CO3", "NYSE"));
+        companyService.create(new Company("Company 4", "CO4", "NYSE"));
 
         return "redirect:/companies/list";
     }

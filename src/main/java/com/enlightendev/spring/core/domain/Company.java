@@ -15,12 +15,15 @@ public class Company extends AbstractEntity {
      */
     private String name;
     private String ticker;
+    private String exchange;
+
 
     protected Company(){}
 
-    public Company(String name, String ticker){
+    public Company(String name, String ticker, String exchange){
         this.name = name;
         this.ticker = ticker;
+        this.exchange = exchange;
     }
 
     public String getName() {
@@ -37,5 +40,13 @@ public class Company extends AbstractEntity {
 
     public void setTicker(String ticker) {
         this.ticker = ticker;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
     }
 }

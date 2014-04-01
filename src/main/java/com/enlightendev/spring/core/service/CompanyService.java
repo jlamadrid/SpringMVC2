@@ -17,4 +17,8 @@ public interface CompanyService {
 
     public List<Company> findAll();
 
+    public List<Company> allNYSE();
+
+    public List<Company> findByExchange(String exchange);
+
 }

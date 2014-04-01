@@ -60,4 +60,15 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> list = Lists.newArrayList(companyRepository.findAll());
         return list;
     }
+
+    @Override
+    public List<Company> allNYSE() {
+        return companyRepository.allNYSE();
+    }
+
+    @Override
+    public List<Company> findByExchange(String exchange) {
+        return companyRepository.findByExchange(exchange);
+    }
+
 }
