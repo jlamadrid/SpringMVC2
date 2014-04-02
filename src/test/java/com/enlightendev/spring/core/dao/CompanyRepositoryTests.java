@@ -38,8 +38,8 @@ public class CompanyRepositoryTests {
     @Test
     public void createCompanies(){
 
-        companyRepository.save(new Company("CO1","CO1"));
-        companyRepository.save(new Company("CO2","CO2"));
+        companyRepository.save(new Company("CO1","CO1","NYSE"));
+        companyRepository.save(new Company("CO2","CO2","NYSE"));
 
         List<Company> companies = companyRepository.findAll();
         assertEquals(2,companies.size());
